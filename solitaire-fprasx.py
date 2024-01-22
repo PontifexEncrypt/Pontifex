@@ -3,49 +3,54 @@ import random
 DECKSIZE = 54
 A = DECKSIZE - 1
 B = DECKSIZE
-deck = [
+d = [
     1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,
     29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,A,B
     ]
 random.seed(5318008)
-random.shuffle(deck)
+random.shuffle(d)
 
-assert DECKSIZE == len(deck)
+assert DECKSIZE == len(d)
 
 # golf start
-index=lambda l,x:l.index(x)
+
+# index of this card
+index=lambda x:d.index(x)
+# push joker down normally
 push=lambda l,i:l[:i]+[l[i+1]]+[l[i]]+l[i+2:]
+# special case bring card to second to top
+cyclebot2top=lambda i:[d[0],d[i],*d[1:i]]
 
 def keystream():
-    global deck, A, B, DECKSIZE
+    global d, A, B, DECKSIZE
     # cycle ajoker
-    aidx = index(deck, A)
-    deck = push(deck, aidx) if aidx != DECKSIZE - 1 else (
-        [deck[0], deck[aidx], *deck[1:aidx]])
+    a = index(A)
+    d = push(d, a) if a != DECKSIZE - 1 else cyclebot2top(a)
 
     # cycle bjoker
-    bidx = index(deck, B)
-    deck = push(deck, bidx) if bidx != DECKSIZE-1 else (
-        [deck[0], deck[bidx], *deck[1:bidx]])
+    b = index(B)
+    d = push(d, b) if b != DECKSIZE-1 else cyclebot2top(b)
 
-    bidx = index(deck, B)
-    deck = push(deck, bidx) if bidx != DECKSIZE-1 else (
-        [deck[0], deck[bidx], *deck[1:bidx]])
+    b = index(B)
+    d = push(d, b) if b != DECKSIZE-1 else cyclebot2top(b)
 
     # triple cut
-    [lo, hi] = sorted([index(deck, A), index(deck, B)])
-    deck = [*deck[hi+1:], *deck[lo:hi + 1], *deck[:lo]]
+    [lo, hi] = sorted([index(A), index(B)])
+    d = d[hi+1:]+d[lo:hi + 1]+d[:lo]
 
     # count end
-    bot = min(deck[-1], A)
-    deck = [*deck[bot:-1], *deck[:bot], deck[-1]]
+    bot = min(d[-1], A)
+    d = d[bot:-1]+d[:bot]+[d[-1]]
 
     # return value
-    top = min(deck[0], A)
-    return deck[top] if deck[top] < A else keystream()
+    top = min(d[0], A)
+    return d[top] if d[top] < A else keystream()
     
 # golf end
 
-for c in "hifelixthisisbennettgillig":
+expected = "rvwszsylhrnfpkpeetpooeuqenlkhfynbncoohblhadptklqqkliqggoddcwqcfgxsazququpdzjkeqgcsachmjskaxcxqheawtwqymadnibxsxylrtkahsrwwvlcfhf"
+result = ""
+for c in "mvdpbacxvvlpmeabquboslrcrxdaqfedkywedhybmpanzabutgjdahejnkhrgsbaxczydcdyuinxkptidzwlnocetmjnwxekzzyjyhsgjkuecfsicwprfpgfsmqkzkki":
     enc = 96 + ((ord(c) - 96 + keystream()) % 26 or 26)
-    print(chr(enc), end="")
+    result += chr(enc)
+assert result == expected
