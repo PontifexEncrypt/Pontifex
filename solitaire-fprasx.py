@@ -21,14 +21,14 @@ def keystream():
     global d, A, B, DECKSIZE
     # cycle ajoker
     a = index(A)
-    d=a!=DECKSIZE-1 and push(d,a)or cyclebot2top(a)
+    d=a<DECKSIZE-1 and push(d,a)or cyclebot2top(a)
 
     # cycle bjoker
     b = index(B)
-    d=b!=DECKSIZE-1 and push(d,b)or cyclebot2top(b)
+    d=b<DECKSIZE-1 and push(d,b)or cyclebot2top(b)
 
     b = index(B)
-    d=b!=DECKSIZE-1 and push(d,b)or cyclebot2top(b)
+    d=b<DECKSIZE-1 and push(d,b)or cyclebot2top(b)
 
     # triple cut
     lo, hi = sorted([index(A), index(B)])
