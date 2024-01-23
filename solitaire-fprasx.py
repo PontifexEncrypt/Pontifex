@@ -2,7 +2,7 @@ import random
 
 # golf start
 A=53
-def e(s,r,d):p=lambda j,d:A>(k:=d.index(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k];d=p(54,p(54,p(A,d)));l,h=sorted([d.index(A),d.index(54)]);d=d[h+1:]+d[l:h+1]+d[:l];b=min(d[-1],A);d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],A);return s and(A>d[t]and e(s[1:],r+chr(97+(ord(s[0])-97+d[t])%26),d)or e(s,r,d))or r
+def e(s,d,r=""):p=lambda j,d:A>(k:=d.index(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k];d=p(54,p(54,p(A,d)));l,h=sorted([d.index(A),d.index(54)]);d=d[h+1:]+d[l:h+1]+d[:l];b=min(d[-1],A);d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],A);return s and(A>d[t]and e(s[1:],d,r+chr(97+(ord(s[0])-97+d[t])%26))or e(s,d,r))or r
 encrypt=e
 # golf end
 
@@ -15,5 +15,5 @@ d = [
     ]
 random.seed(5318008)
 random.shuffle(d)
-result = e(plaintext, "", d)
+result = e(plaintext, d)
 assert result == expected, f"{result}"
