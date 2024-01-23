@@ -2,15 +2,8 @@ import random
 
 # golf start
 A=53
-def encrypt(s,e,d):
-    p=lambda j,d:A>(k:=d.index(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k]
-    d=p(54,p(54,p(A,d)))
-    l,h=sorted([d.index(A),d.index(54)])
-    d=d[h+1:]+d[l:h+1]+d[:l]
-    b=min(d[-1],A)
-    d=d[b:-1]+d[:b]+[d[-1]]
-    t=min(d[0],A)
-    return s and(A>d[t]and encrypt(s[1:],e+chr(97+(ord(s[0])-97+d[t])%26),d)or encrypt(s,e,d))or e
+def e(s,r,d):p=lambda j,d:A>(k:=d.index(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k];d=p(54,p(54,p(A,d)));l,h=sorted([d.index(A),d.index(54)]);d=d[h+1:]+d[l:h+1]+d[:l];b=min(d[-1],A);d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],A);return s and(A>d[t]and e(s[1:],r+chr(97+(ord(s[0])-97+d[t])%26),d)or e(s,r,d))or r
+encrypt=e
 # golf end
 
 
@@ -22,5 +15,5 @@ d = [
     ]
 random.seed(5318008)
 random.shuffle(d)
-result = encrypt(plaintext, "", d)
+result = e(plaintext, "", d)
 assert result == expected, f"{result}"
