@@ -2,8 +2,14 @@ import random
 
 # golf start
 A=53
-def k(d):p=lambda j,d:A>(k:=d.index(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k];d=p(54,p(54,p(A,d)));l,h=sorted([d.index(A),d.index(54)]);d=d[h+1:]+d[l:h+1]+d[:l];b=min(d[-1],A);d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],A);return A>d[t]and(d[t],d)or k(d)
-def encrypt(s,d):o,d=k(d);return s and chr(97+(ord(s[0])-97+o)%26)+encrypt(s[1:],d)or""
+def k(c,e,d):
+ p=lambda j,d:A>(k:=d.index(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k];
+ d=p(54,p(54,p(A,d)));
+ l,h=sorted([d.index(A),d.index(54)]);
+ d=d[h+1:]+d[l:h+1]+d[:l];b=min(d[-1],A);
+ d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],A);
+ return A>d[t]and(e+chr(97+(ord(c)-97+d[t])%26),d)or k(c,e,d)
+encrypt=lambda s,e,d:s and encrypt(s[1:],*k(s[0],e,d))or e
 # golf end
 
 
@@ -15,5 +21,5 @@ d = [
     ]
 random.seed(5318008)
 random.shuffle(d)
-result = encrypt(plaintext, d)
+result = encrypt(plaintext, "", d)
 assert result == expected, f"{result}"
