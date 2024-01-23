@@ -14,16 +14,13 @@ assert DECKSIZE == len(d)
 
 # golf start
 i=lambda x:d.index(x)
-pus2=lambda j:53>(k:=i(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k]
+p=lambda j:53>(k:=i(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k]
 
 def keystream():
     global d, A, B, DECKSIZE
-    # cycle ajoker
-    d=pus2(A)
-
-    # cycle bjoker
-    d=pus2(B)
-    d=pus2(B)
+    d=p(A)
+    d=p(B)
+    d=p(B)
 
     # triple cut
     lo, hi = sorted([i(A), i(B)])
