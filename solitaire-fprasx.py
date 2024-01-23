@@ -13,29 +13,25 @@ random.shuffle(d)
 assert DECKSIZE == len(d)
 
 # golf start
-
-# index of this card
 index=lambda x:d.index(x)
-# push joker down normally
 push=lambda l,i:l[:i]+[l[i+1]]+[l[i]]+l[i+2:]
-# special case bring card to second to top
 cyclebot2top=lambda i:[d[0],d[i],*d[1:i]]
 
 def keystream():
     global d, A, B, DECKSIZE
     # cycle ajoker
     a = index(A)
-    d = push(d, a) if a != DECKSIZE - 1 else cyclebot2top(a)
+    d=a!=DECKSIZE-1 and push(d,a)or cyclebot2top(a)
 
     # cycle bjoker
     b = index(B)
-    d = push(d, b) if b != DECKSIZE-1 else cyclebot2top(b)
+    d=b!=DECKSIZE-1 and push(d,b)or cyclebot2top(b)
 
     b = index(B)
-    d = push(d, b) if b != DECKSIZE-1 else cyclebot2top(b)
+    d=b!=DECKSIZE-1 and push(d,b)or cyclebot2top(b)
 
     # triple cut
-    [lo, hi] = sorted([index(A), index(B)])
+    lo, hi = sorted([index(A), index(B)])
     d = d[hi+1:]+d[lo:hi + 1]+d[:lo]
 
     # count end
