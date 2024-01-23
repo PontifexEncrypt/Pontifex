@@ -23,16 +23,16 @@ def keystream():
     d=p(B)
 
     # triple cut
-    lo, hi = sorted([i(A), i(B)])
-    d = d[hi+1:]+d[lo:hi + 1]+d[:lo]
+    lo,hi=sorted([i(A),i(B)])
+    d=d[hi+1:]+d[lo:hi+1]+d[:lo]
 
     # count end
-    bot = min(d[-1], A)
-    d = d[bot:-1]+d[:bot]+[d[-1]]
+    b=min(d[-1],A)
+    d=d[b:-1]+d[:b]+[d[-1]]
 
     # return value
-    top = min(d[0], A)
-    return d[top] if d[top] < A else keystream()
+    t=min(d[0],A)
+    return d[t]<A and d[t]or keystream()
     
 # golf end
 
