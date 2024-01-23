@@ -8,9 +8,10 @@ random.seed(5318008)
 random.shuffle(d)
 
 # golf start
+A=53
 i=lambda x:d.index(x)
-p=lambda j:53>(k:=i(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k]
-def k():global d;d=p(53);d=p(54);d=p(54);lo,hi=sorted([i(53),i(54)]);d=d[hi+1:]+d[lo:hi+1]+d[:lo];b=min(d[-1],53);d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],53);return 53>d[t]and d[t]or k()
+p=lambda j:A>(k:=i(j))and d[:k]+[d[k+1],j]+d[k+2:]or[d[0],j]+d[1:k]
+def k():global d;d=p(A);d=p(54);d=p(54);l,h=sorted([i(A),i(54)]);d=d[h+1:]+d[l:h+1]+d[:l];b=min(d[-1],A);d=d[b:-1]+d[:b]+[d[-1]];t=min(d[0],A);return A>d[t]and d[t]or k()
 encrypt=lambda s:"".join(chr(97+(ord(c)-97+k())%26)for c in s)
 # golf end
 
