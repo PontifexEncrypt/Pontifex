@@ -14,7 +14,7 @@ assert DECKSIZE == len(d)
 
 # golf start
 index=lambda x:d.index(x)
-push=lambda l,i:l[:i]+[l[i+1]]+[l[i]]+l[i+2:]
+push=lambda l,i:l[:i]+[l[i+1],l[i]]+l[i+2:]
 cyclebot2top=lambda i:[d[0],d[i],*d[1:i]]
 
 def keystream():
