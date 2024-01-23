@@ -32,7 +32,7 @@ def keystream():
 
     # return value
     t=min(d[0],A)
-    return d[t]<A and d[t]or keystream()
+    return A>d[t]and d[t]or keystream()
     
 # golf end
 
