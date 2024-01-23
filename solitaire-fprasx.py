@@ -17,6 +17,5 @@ def k():
 expected = "rvwszsylhrnfpkpeetpooeuqenlkhfynbncoohblhadptklqqkliqggoddcwqcfgxsazququpdzjkeqgcsachmjskaxcxqheawtwqymadnibxsxylrtkahsrwwvlcfhf"
 result = ""
 for c in "mvdpbacxvvlpmeabquboslrcrxdaqfedkywedhybmpanzabutgjdahejnkhrgsbaxczydcdyuinxkptidzwlnocetmjnwxekzzyjyhsgjkuecfsicwprfpgfsmqkzkki":
-    enc = 96 + ((ord(c) - 96 + k()) % 26 or 26)
-    result += chr(enc)
-assert result == expected
+    result += chr(97+(ord(c)-97+k())%26)
+assert result == expected, f"{result}"
